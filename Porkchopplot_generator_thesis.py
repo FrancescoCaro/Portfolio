@@ -226,17 +226,17 @@ lambert = pk.lambert_problem(r_earth, r_mars, min_tof, mu_sun)
 v1 = np.array(lambert.get_v1()[0]) 
 v2 = np.array(lambert.get_v2()[0]) 
 
-# Propagate the trajectory
-n_points = 100  # Number of points to plot along the trajectory
-times = np.linspace(0, min_tof, n_points)  # Time steps from launch to arrival
-traj_positions = np.zeros((n_points, 3))  # Array to store trajectory positions
+# Propagate la traiettoria
+n_points = 100  # Numero di punti da plottare lungo la traiettoria
+times = np.linspace(0, min_tof, n_points)  # Time steps dal lancio all'arrivo
+traj_positions = np.zeros((n_points, 3))  # Vettore che contiene le posizioni della traiettoria
 
-# Propagate the orbit using PyKep's Lagrangian propagation
+# Propagation dell'orbita
 for i, t in enumerate(times):
     r, _ = propagate_lagrangian(r_earth, v1, t, mu_sun)
     traj_positions[i] = r
 
-# Step 4: Get Earth and Mars orbits for context
+# Estraggo le orbite di Terra e Marte
 earth_positions = np.zeros((n_points, 3))
 mars_positions = np.zeros((n_points, 3))
 for i, t in enumerate(np.linspace(min_launch_et, min_arrival_et, n_points)):
