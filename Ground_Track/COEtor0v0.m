@@ -1,6 +1,6 @@
 function [r0_COE,v0_COE] = COEtor0v0(a,ecc,i,raan,w,v)
 
-%L'input "a" è in chilometri. Tutti gli altri input sono in gradi. Gli
+%The input "a" is in [km]. All the other inputs are in [degree]. Gli
 %output sono in Km e in Km/s
 
 mu=398600.4355067;
@@ -20,6 +20,7 @@ h = sqrt(a*mu*(1-ecc^2));
 
 r0_COE = R*r*[cos(v); sin(v); 0];
 v0_COE = R*[-mu*sin(v)/h; mu*(ecc+cos(v))/h; 0];
+
 
 
 
