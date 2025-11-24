@@ -1,8 +1,8 @@
 % Propagation interval (seconds since t0)
-step = 30 ; %intervallo di tempo tra un punto e un altro della traccia a terra
-period = 24; % periodo orbitale in ore (h)
-tspan = 0:step:period*60*60; %l'ultimo valore corrisponde al tempo passato ad osservare l'orbita (è bene di solito porlo uguale al periodo dell'orbita)
-X0 = [r0_COE' v0_COE']; %VETTORI DI STATO INIZIALE (le prime tre componenti sono la posizione, le ultime tre sono la velocità)
+step = 30 ; % time intervall between two points on the ground track
+period = 24; % orbital period in Hours [h]
+tspan = 0:step:period*60*60; % the last value corresponds to the last istant seen to draw the ground track
+X0 = [r0_COE' v0_COE']; % Initial state vector 
 
 % Propagate orbit using classical two-body problem
 options = odeset('RelTol',1e-13,'AbsTol',1e-13);
@@ -11,22 +11,22 @@ rVec = X(:,1:3); % ECI J2000 position vector
 vVec = X(:,4:6); % ECI J2000 velocity vector
 
 
-r3=rVec(:,3); %estrae la terza componente del vettore posizione
-r2=rVec(:,2); %estrae la seconda componente del vettore posizione
-r1=rVec(:,1); %estrae la prima componente del vettore posizione
+r3=rVec(:,3); 
+r2=rVec(:,2); 
+r1=rVec(:,1); 
 norm_r=[];
 wearth=2*pi/86164;
 for i=1:length(r3)
-    norm_r(i)=norm(rVec(i,:)); %genera una matrice la cui i-esima componente è la norma del vettore posizione al tempo i-esimo
+    norm_r(i)=norm(rVec(i,:)); % generate a matrix whose i-th component is the norm of the position vector at the i-th time step
 end
-norm_r=norm_r(:); % rende la matrice norm_r un vettore colonna
+norm_r=norm_r(:); % Reshape/convert the matrix norm_r into a column vector
 
 
-lat=asin(r3./norm_r); %calcola la latitudine
+lat=asin(r3./norm_r); % compute the latitude
 
-lon_eci=atan2(r2./(norm_r.*cos(lat)),r1./(norm_r.*cos(lat))); %longitudine nel sdr ECI
+lon_eci=atan2(r2./(norm_r.*cos(lat)),r1./(norm_r.*cos(lat))); % longitude in the ECI reference frame
 
-rot_tot=wearth*(tspan)'; %velocità di rotazione terrestre
+rot_tot=wearth*(tspan)'; % Earth angular rate
 for i=1:length(rot_tot)
     if rot_tot(i)>pi
         rot_tot(i)=rot_tot(i)-2*pi;
@@ -50,18 +50,18 @@ lat=rad2deg(lat);
 
 file = dir('Mercator_projection_SW.*');
 img = imread(file(1).name);
-  % Sostituisci con il tuo file
+ 
 nexttile;
 imagesc([-180 180],[-90 90],flipud(img))
 set(gca,'YDir','normal')
 hold on
 plot(long,lat,'o', ...
-    'MarkerEdgeColor', 'r', ...   % bordo rosso (può anche essere 'none')
-    'MarkerFaceColor', 'r', ...   % interno rosso
+    'MarkerEdgeColor', 'r', ...  
+    'MarkerFaceColor', 'r', ...   
     'MarkerSize',2,...
     'LineStyle', 'none')
 hold on
-plot(long(1),lat(1),'o', ... %evidenzia in verde il punto corrispondente alla posizione iniziale
+plot(long(1),lat(1),'o', ... 
     'MarkerEdgeColor', 'g', ...   
     'MarkerFaceColor', 'g', ...  
     'MarkerSize',2,...
@@ -80,3 +80,4 @@ title('Longitudine ECI')
 subplot(3,1,3)
 plot(tspan,lon_ecef,'o')
 title('Longitudine ECEF')
+
