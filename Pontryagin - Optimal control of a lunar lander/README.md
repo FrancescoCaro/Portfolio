@@ -149,8 +149,8 @@ which matches the mass difference obtained from the integrated trajectory.
 Requirements: Python 3.9+.
 
 ```bash
-git clone <your-repository-url>
-cd <your-repository-folder>
+git clone https://github.com/FrancescoCaro/Portfolio
+cd Portfolio/"Pontryagin - Optimal control of a lunar lander"
 pip install -r requirements.txt
 python lunar_lander_pontryagin.py
 ```
@@ -187,13 +187,9 @@ Shooting methods are sensitive to the initial costate guess. If the solver does 
 |---|---|
 | `lunar_lander_pontryagin.py` | Solver and plotting script |
 | `requirements.txt` | Python dependencies |
-| `state_costates.png` | State and costate histories |
-| `control_switching_H.png` | Throttle, switching function and Hamiltonian |
+| `State&Costate.png` | State and costate histories |
+| `Control.png` | Throttle, switching function and Hamiltonian |
 
-## References
-
-- L. S. Pontryagin, V. G. Boltyanskii, R. V. Gamkrelidze, E. F. Mishchenko, *The Mathematical Theory of Optimal Processes*, 1962.
-- J. S. Meditch, "On the problem of optimal thrusting programs for a lunar soft landing", *IEEE Transactions on Automatic Control*, 1964.
 
 ## Author
 
