@@ -9,7 +9,7 @@ Indirect optimal-control solution of a **vertical lunar soft landing that maximi
 
 The solver recovers the classic **bang-bang** structure, *coast, then full-thrust burn*, together with the full history of states, costates (Lagrange multipliers), switching function and Hamiltonian.
 
-![State and costates](state_costates.png)
+![State and costates](State&Costate.png)
 
 ## Highlights
 
@@ -132,7 +132,7 @@ How to read the plots:
 - **Control:** $\theta$ crosses zero once, so the throttle switches once from 0 to 1.
 - **Hamiltonian:** it stays at the $10^{-14}$ level for the whole trajectory (the second plot below), as required by the free final time condition. The visible fluctuations are just floating-point noise.
 
-![Control, switching function and Hamiltonian](control_switching_H.png)
+![Control, switching function and Hamiltonian](Control.png)
 
 ## Verification
 
@@ -197,8 +197,5 @@ Shooting methods are sensitive to the initial costate guess. If the solver does 
 
 ## Author
 
-**Your Name** · [LinkedIn](https://www.linkedin.com/in/your-profile) · [GitHub](https://github.com/your-username)
+**Francesco Caroletta** · [LinkedIn](https://www.linkedin.com/in/francesco-caroletta-a569852a6/) · [GitHub](https://github.com/FrancescoCaro)
 
-## License
-
-Released under the MIT License. Add a `LICENSE` file to the repository.
