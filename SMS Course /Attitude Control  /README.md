@@ -151,4 +151,4 @@ The script prints the results of points 2 and 3 to the console (desaturation tim
 
 ## Author
 
-**Your Name** · [LinkedIn](https://www.linkedin.com/in/francesco-caroletta-a569852a6) · [GitHub](https://github.com/FrancescoCaro)
+**Francesco Caroletta** · [LinkedIn](https://www.linkedin.com/in/francesco-caroletta-a569852a6) · [GitHub](https://github.com/FrancescoCaro)
