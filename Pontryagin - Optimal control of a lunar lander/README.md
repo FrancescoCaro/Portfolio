@@ -193,5 +193,5 @@ Shooting methods are sensitive to the initial costate guess. If the solver does 
 
 ## Author
 
-**Francesco Caroletta** · [LinkedIn](https://www.linkedin.com/in/francesco-caroletta-a569852a6/) · [GitHub](https://github.com/FrancescoCaro)
+**Francesco Caroletta** · [LinkedIn](https://www.linkedin.com/in/francesco-caroletta-a569852a6/) · [GitHub](https://github.com/FrancescoCaro) · [EMAIL](mailto:francecaroletta@gmail)
 
