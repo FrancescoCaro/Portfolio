@@ -126,8 +126,5 @@ The script displays three figures (C₃/v∞/TOF porkchop plot, Δv porkchop plo
 
 ## Author
 
-**Francesco Caroletta**, Aerospace Engineering graduate, Sapienza University of Rome
-
-- 💼 LinkedIn: [INSERISCI-URL-LINKEDIN](INSERISCI-URL-LINKEDIN)
-- ✉️ Email: [INSERISCI-EMAIL](mailto:INSERISCI-EMAIL)
-- 🐙 GitHub: [@FrancescoCaro](https://github.com/FrancescoCaro)
+**Francesco Caroletta**
+[LinkedIn](www.linkedin.com/in/francesco-caroletta-a569852a6) [Email](mailto:Francecaroletta@gmail.com) [@FrancescoCaro](https://github.com/FrancescoCaro)
