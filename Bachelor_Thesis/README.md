@@ -1,91 +1,133 @@
-# Earth–Mars Porkchop Plot Generator
+# Bachelor's Thesis: Lambert's Problem and Interplanetary Transfers (Earth–Mars)
 
-**Complete porkchop plot generator** for ballistic Earth → Mars transfers with automatic identification of the **minimum-Δv trajectory**.
+**Analysis of Lambert's problem and its application to interplanetary transfers: a study of an Earth–Mars mission**
+*(original title: "Analisi del problema di Lambert e applicazione ai trasferimenti interplanetari: studio di una missione Terra-Marte")*
 
-Developed as part of a Bachelor's thesis in Aerospace Engineering – La Sapienza (2025)
-Author: Francesco  Caroletta
+Final thesis for the B.Sc. in Aerospace Engineering, Sapienza University of Rome (Faculty of Civil and Industrial Engineering).
+Supervisor: Prof. Alessandro Zavoli.
 
-## What the Script Does
+> 🇮🇹 The thesis document is written in Italian. This README summarizes the work in English.
 
-The script performs a systematic brute-force search over a user-defined grid of launch and arrival dates. For every valid (launch, arrival) pair it:
+---
 
-1. Retrieves high-precision heliocentric position and velocity of Earth (at departure) and Mars (at arrival) using **NASA SPICE kernels**
-2. Solves **Lambert’s problem** with the **pykep** library
-3. Computes:
-   - **C3** (launch characteristic energy)
-   - Arrival **v∞** at Mars
-   - Departure **Δv** from a 300 km circular LEO
-   - Mars orbit insertion **Δv** into a 200 km circular Low Mars Orbit (LMO)
-   - **Total Δv**
-4. Applies user-defined cut-offs (C3 ≤ 50 km²/s², v∞ ≤ 12 km/s, total Δv ≤ 20 km/s)
-5. Automatically generates **three plots**:
-   - Porkchop plot with **C3** (filled contours), **v∞** (blue solid lines) and **TOF** (green dashed lines)
-   - Classic porkchop plot with **total Δv** (filled contours) + TOF
-   - Heliocentric view of the **optimal transfer trajectory** (minimum Δv) showing Earth orbit, Mars orbit, transfer arc, Sun, departure Earth and arrival Mars
+## Contents
 
-The script also prints to console the **best solution found** (dates, TOF, minimum Δv).
+| File | Description |
+|------|-------------|
+| [`BAER___Caroletta.pdf`](./BAER___Caroletta.pdf) | Full thesis (Italian, 7 pages) |
+| [`Porkchopplot_generator_thesis.py`](./Porkchopplot_generator_thesis.py) | Python script that generates the porkchop plots and the minimum-Δv transfer trajectory |
+| [`images/`](./images) | Figures from the thesis used in this README |
 
-## Default Launch Opportunity (2020–2021 synodic period)
+---
 
-| Parameter                  | Value                              |
-|----------------------------|------------------------------------|
-| Launch window              | 2020-01-01 → 2020-12-31            |
-| Arrival window             | 2020-10-01 → 2021-12-12            |
-| Time step                  | **1 day**                          |
-| Parking orbit              | LEO 300 km altitude                |
-| Mars capture orbit         | Circular 200 km LMO                |
-| Typical result             | **≈ 5.87 km/s** total Δv           |
-| Example optimal launch     | 2020-08-25                         |
-| Example optimal arrival    | 2021-03-11                         |
-| Example TOF                | 198 days                           |
+## Overview
 
-## Requirements
+Lambert's problem consists in finding the Keplerian orbit that connects two position vectors in a prescribed time of flight, and it is a cornerstone of astrodynamics: it is used in rendezvous and interception, orbit determination, preliminary mission design and space debris correlation.
+
+The thesis covers:
+
+1. **Theory**: Lambert's theorem, its derivation from the time-of-flight equation, the Prussing criterion to resolve the quadrant ambiguity of the auxiliary angles, and the computation of terminal velocities through the Lagrange coefficients.
+2. **Solution algorithms**: an overview of the main iterative approaches (Bate, Battin & Vaughan, Gooding, Izzo, Simó), compared by iteration variable, iteration scheme, initial guess and velocity reconstruction.
+3. **Case study**: a numerical model for the Earth–Mars transfer, used to generate porkchop plots and identify optimal launch windows.
+
+## Method
+
+For each (launch date, arrival date) pair on a grid, the script:
+
+1. Retrieves the heliocentric positions and velocities of Earth and Mars from NASA's **SPICE** toolkit (`spiceypy`, DE440s ephemerides, `ECLIPJ2000` frame).
+2. Solves Lambert's problem with the **`pykep`** solver (Izzo's algorithm) for the corresponding time of flight.
+3. Computes the departure characteristic energy **C₃** and the arrival hyperbolic excess speed **v∞,arr** from the Lambert and planetary velocities.
+4. Estimates the total **Δv** for a transfer from a circular **300 km LEO** around Earth to a circular **200 km orbit** around Mars, as the sum of the departure and arrival burns.
+5. Plots the results as porkchop plots (C₃, v∞,arr, TOF and total Δv contours) and propagates the minimum-Δv transfer orbit.
+
+## Results
+
+The model was validated in two ways.
+
+**1. Comparison with the literature (2005 launch window)**
+Results were compared with the JPL *Interplanetary Mission Design Handbook* (Sergeyevsky et al., 1983). The shapes and distributions of the C₃, v∞ and TOF contours, as well as the numerical values, are in good agreement with the reference data.
+
+- Minimum Δv (short-arc solution): **6.06 km/s**
+- Launch → arrival: **22 Aug 2005 → 27 Mar 2006**
+
+<p align="center">
+  <img src="./images/porkchop_2005_dv.png" width="48%" alt="Earth–Mars porkchop plot, total Δv, 2005 window">
+  <img src="./images/porkchop_2005_c3.png" width="48%" alt="Earth–Mars porkchop plot, C3 and arrival v∞, 2005 window">
+</p>
+<p align="center"><em>Porkchop plots for the 2005 window: total Δv with TOF contours (left); C₃ with arrival v∞ and TOF contours (right). Plot labels are in Italian ("giorni" = days, "Δv totale" = total Δv).</em></p>
+
+<p align="center">
+  <img src="./images/trajectory_2005.png" width="55%" alt="Minimum-Δv Earth–Mars transfer trajectory, 2005 window">
+</p>
+<p align="center"><em>Minimum-Δv transfer trajectory (Δv = 6.06 km/s), ecliptic plane (ECLIPJ2000).</em></p>
+
+**2. Comparison with a real mission (NASA Perseverance, 2020 window)**
+
+| | Launch | Arrival | TOF |
+|---|---|---|---|
+| **Actual mission** | 30 Jul 2020, 11:50 UTC | 18 Feb 2021, 20:55 UTC | ~203 days |
+| **Model (minimum Δv = 5.89 km/s)** | 27 Jul 2020 | 19 Feb 2021 | 207 days |
+
+The optimal dates found by the model are very close to those actually chosen for the mission.
+
+<p align="center">
+  <img src="./images/porkchop_perseverance_dv.png" width="48%" alt="Porkchop plot for the Perseverance 2020 window, total Δv">
+  <img src="./images/trajectory_perseverance.png" width="48%" alt="Minimum-Δv transfer trajectory for the Perseverance 2020 window">
+</p>
+<p align="center"><em>Perseverance 2020 window: total Δv porkchop plot with TOF contours (left) and minimum-Δv transfer trajectory, Δv = 5.89 km/s (right).</em></p>
+
+The porkchop plots also show the characteristic split between **short-arc** (Δν < 180°) and **long-arc** (Δν > 180°) solutions, with the latter corresponding to longer flight times.
+
+## Limitations
+
+The model is based on Keplerian (two-body) assumptions and is intended as a **preliminary mission design tool**. It does not account for:
+
+- perturbative effects,
+- gravity-assist maneuvers required by more complex missions.
+
+In the script, only the zero-revolution Lambert solution is considered, and planetary states are taken from the Earth and Mars barycenters.
+
+## Running the script
+
+### Requirements
+
+- Python 3
+- `numpy`, `matplotlib`, `spiceypy`, `pykep`
 
 ```bash
 pip install numpy matplotlib spiceypy pykep
 ```
 
-The script will not run without the following three kernels.
-Download and place them in your project folder (or update the paths in the script).
-| Kernel    | Direct download link          | Description |
-|------------------------|-----------------------------|-------------------|
-| `de440s.bsp` | [download here](https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440s.bsp) | Planetary ephemeris (1950–2050)   |
-| `naif0012.tls` | [download here](https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440s.bsp) | Leap seconds kernel   |
-| `gm_de431.tpc` | [download here](https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440s.bsp) | Gravitational parameters (GM)   |
+### SPICE kernels
 
-### Quick one liner to download all three
+The kernels are **not included** in this repository. Download them from the [NAIF website](https://naif.jpl.nasa.gov/naif/data.html) and update the `spice.furnsh(...)` paths at the top of the script (they currently point to a local path):
+
+- `Gravity.tpc`: gravitational constants (GM)
+- `naif0012.tls`: leap seconds kernel (LSK)
+- `de440s.bsp`: planetary ephemerides (SPK)
+
+### Configuration
+
+Launch and arrival windows, time step and cutoff values (C₃, v∞, Δv) are set at the top of the script. The version in this folder is configured for the **Perseverance 2020 window**. To reproduce the 2005 literature comparison, change `launch_start_day`, `launch_end_day`, `arrival_start_day` and `arrival_end_day` accordingly.
+
 ```bash
-wget -c https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440s.bsp
-wget -c https://naif.jpl.nasa.gov/pub/naif/generic_kernels/lsk/naif0012.tls
-wget -c https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/gm_de431.tpc
-```
-After downloading, update the three `spice.furnsh()` lines at the top of the script with the correct file paths.
-
-## Customization
-
-To analyze a different Earth–Mars launch opportunity (e.g. the 2033–2035 synodic period), simply modify these variables near the top of the script:
-
-```python
-# Launch window
-launch_start_day  = "2033-01-01 00:00:00 UTC"
-launch_end_day    = "2035-12-31 00:00:00 UTC"
-
-# Arrival window
-arrival_start_day = "2033-09-01 00:00:00 UTC"
-arrival_end_day   = "2036-06-01 00:00:00 UTC"
-
-# Time resolution (1 = 1 day, 0.5 = 12 hours, etc.)
-step = 1  # days
+python Porkchopplot_generator_thesis.py
 ```
 
-Other parameters you can easily change
-```python
-# Orbits
-r_LEO = (6371 + 300)   # Earth departure: 300 km altitude LEO
-r_LMO = (3390 + 200)   # Mars arrival: 200 km circular LMO
+The script displays three figures (C₃/v∞/TOF porkchop plot, Δv porkchop plot, minimum-Δv transfer trajectory) and prints the minimum Δv with the corresponding launch date, arrival date and TOF.
 
-# Cutoff values (values above these will be clipped in plots)
-cutoff_c3     = 50     # km²/s²
-cutoff_v_inf  = 12     # km/s
-cutoff_dv     = 20     # km/s total Δv
-```
+## References
+
+1. Fantino, E. and de la Torre Sangrà, D., *Review of Lambert's Problem*, 25th Int. Symp. on Space Flight Dynamics (ISSFD), 2015.
+2. Izzo, D., *Revisiting Lambert's Problem*, Celestial Mechanics and Dynamical Astronomy, vol. 121, pp. 1–15, 2015.
+3. Toglia, C., Master's thesis, Politecnico di Torino, 2006.
+4. Qadir, K., *Multi Gravity Assist Trajectory Design Tool*, Master's Thesis, University of Southampton, 2010.
+5. Sergeyevsky, A.B., Snyder, G.C. and Cunniff, R.A., *Interplanetary Mission Design Handbook, Volume I, Part 2: Earth to Mars Ballistic Mission Opportunities, 1990–2005*, JPL Publication 82-43, 1983.
+
+## Author
+
+**Francesco Caroletta**, Aerospace Engineering graduate, Sapienza University of Rome
+
+- 💼 LinkedIn: [INSERISCI-URL-LINKEDIN](INSERISCI-URL-LINKEDIN)
+- ✉️ Email: [INSERISCI-EMAIL](mailto:INSERISCI-EMAIL)
+- 🐙 GitHub: [@FrancescoCaro](https://github.com/FrancescoCaro)
