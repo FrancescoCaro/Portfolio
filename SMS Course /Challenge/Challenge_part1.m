@@ -569,3 +569,35 @@ switch observables
         fprintf('''range'' or ''rate'' and run the code again.\n');
 end
 fprintf('======================================================\n');
+
+%% PROPAGATION OF THE A PRIORI FOR THE EKF (Point C1)
+% Propagate the final estimate of Point 1 (state + full covariance) from
+% t = 0 to t0,GNSS, to be used as a priori in the EKF code.
+t_GNSS = 16100;     % [s] t0,GNSS (reference epoch of the clock parameters)
+
+% final estimate at t = 0 (units: km, km/s, kg/km^3)
+X0_fin = iterState(:, iterations);
+P0_fin = cov(:,:,iterations);
+
+% integration of state and STM (Phi(0,0) = I)
+Y0 = [X0_fin; reshape(eye(5), 25, 1)];
+[~, Yp] = ode113(@Model_and_transition, [0 t_GNSS], Y0, options);
+
+X_GNSS   = Yp(end, 1:5)';                 % state at t0,GNSS
+Phi_GNSS = reshape(Yp(end, 6:30), 5, 5);  % Phi(t0,GNSS, 0)
+
+% covariance propagation: P(t) = Phi * P0 * Phi'
+P_GNSS = Phi_GNSS * P0_fin * Phi_GNSS';
+P_GNSS = (P_GNSS + P_GNSS')/2;            % enforce symmetry
+
+% print: copy and paste directly into the EKF code
+fprintf('\n======================================================\n');
+fprintf('   A PRIORI PROPAGATED TO t = %g s  (km, km/s, kg/km^3)\n', t_GNSS);
+fprintf('======================================================\n');
+fprintf('X_apriori_5 = [%.15e; %.15e; %.15e; %.15e; %.15e];\n', X_GNSS);
+fprintf('P_apriori_5 = [\n');
+for k = 1:5
+    fprintf('    %.15e, %.15e, %.15e, %.15e, %.15e;\n', P_GNSS(k,:));
+end
+fprintf('];\n');
+fprintf('======================================================\n');
