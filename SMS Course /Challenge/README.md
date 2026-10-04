@@ -106,7 +106,7 @@ Tasks:
 | `vy₀` [km/s] | 6.228771 | 1.451×10⁻⁷ |
 | `ρ(z₀)` [kg/km³] | 1.708184×10⁻² | 3.665×10⁻⁶ |
 
-Residuals after 5 iterations with the putative accuracies (left, rejected) and with the actual accuracies (right, accepted):
+Residuals after 5 iterations with the putative accuracies (top, rejected) and with the actual accuracies (bottom, accepted):
 
 <p align="center">
   <img src="Figures/residui_range_male.png" width="48%" alt="Range residuals, putative accuracies">
@@ -236,9 +236,5 @@ run('Matlab/Challenge_partC.m')   % Part C (EKF, regression, covariance trace)
 
 ## Author
 
-**Francesco Caroletta**
-Space Missions & Systems, 2025/2026
+**Francesco Caroletta** · [LinkedIn](https://www.linkedin.com/in/francesco-caroletta-a569852a6) · [GitHub](https://github.com/FrancescoCaro) · [EMAIL](mailto:francecaroletta@gmail)
 
-- LinkedIn: [add your link](https://www.linkedin.com/in/your-profile)
-- Email: your.email@example.com
-- University: *add your university*
