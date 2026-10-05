@@ -236,5 +236,5 @@ run('Matlab/Challenge_partC.m')   % Part C (EKF, regression, covariance trace)
 
 ## Author
 
-**Francesco Caroletta** · [LinkedIn](https://www.linkedin.com/in/francesco-caroletta-a569852a6) · [GitHub](https://github.com/FrancescoCaro) · [EMAIL](mailto:francecaroletta@gmail)
+**Francesco Caroletta** · [LinkedIn](https://www.linkedin.com/in/francesco-caroletta-a569852a6) · [GitHub](https://github.com/FrancescoCaro) · [Email](mailto:francecaroletta@gmail.com)
 
