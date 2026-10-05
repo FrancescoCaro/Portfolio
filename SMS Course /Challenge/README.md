@@ -142,12 +142,11 @@ Residuals after 5 iterations with the putative accuracies (top, rejected) and wi
 
 The orbital components do not change. `C_D` stays at its a priori value, so the data do not separate it from the density (they enter the drag acceleration as a product), and the uncertainty of `ρ(z₀)` becomes more than 20 times larger (3.7×10⁻⁶ → 8.4×10⁻⁵ kg/km³).
 
-<!-- TODO: regenerate the Part 3 residual plots with Challenge_part3.m, save them in Figures/ and uncomment:
 <p align="center">
   <img src="Figures/Part3_range_residuals.png" width="48%" alt="Range residuals, Part 3">
   <img src="Figures/Part3_rate_residuals.png" width="48%" alt="Range-rate residuals, Part 3">
 </p>
--->
+
 
 ### Part C1: EKF with GNSS measurements
 
