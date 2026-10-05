@@ -109,12 +109,12 @@ Tasks:
 Residuals after 5 iterations with the putative accuracies (top, rejected) and with the actual accuracies (bottom, accepted):
 
 <p align="center">
-  <img src="Figures/residui_range_male.png" width="48%" alt="Range residuals, putative accuracies">
-  <img src="Figures/residui_rate_male.png" width="48%" alt="Range-rate residuals, putative accuracies">
+  <img src="Figures/Residuals_range_putative_acc.png" width="48%" alt="Range residuals, putative accuracies">
+  <img src="Figures/residuals_rate_putative_acc.png" width="48%" alt="Range-rate residuals, putative accuracies">
 </p>
 <p align="center">
-  <img src="Figures/residui_range_bene.png" width="48%" alt="Range residuals, actual accuracies">
-  <img src="Figures/residui_rate_bene.png" width="48%" alt="Range-rate residuals, actual accuracies">
+  <img src="Figures/Residuals_range_actual_acc.png" width="48%" alt="Range residuals, actual accuracies">
+  <img src="Figures/residuals_rate_actual_acc.png" width="48%" alt="Range-rate residuals, actual accuracies">
 </p>
 
 ### Part 2: which observable is more valuable?
