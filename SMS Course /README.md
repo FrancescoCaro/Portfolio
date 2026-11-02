@@ -6,8 +6,8 @@ This repository collects the assignments completed for the **Space Missions and 
 
 | # | Folder | Topic | Summary |
 |---|---|---|---|
-| 1 | `Orbit Determination/` | Orbit Determination | Batch least-squares estimation of the MPO state (position, velocity, Mercury's GM, solar radiation pressure coefficient) around Mercury from simulated range and range-rate tracking data, including uncertainty propagation and analysis of a data gap due to occultation. |
-| 2 | `Attitude Control/` | Attitude Determination and Control | Design of a reaction-wheel attitude control system to achieve nadir-pointing under solar radiation pressure disturbance, including PD/PID gain tuning and reaction wheel desaturation/saturation-time analysis. |
+| 1 | `Orbit Determination/` | Orbit Determination | **[Note: The files in this folder currently require corrections]** Batch least-squares estimation of the MPO state (position, velocity, Mercury's GM, solar radiation pressure coefficient) around Mercury from simulated range and range-rate tracking data, including uncertainty propagation and analysis of a data gap due to occultation. |
+| 2 | `Attitude Control/` | Attitude Control | Design of a reaction-wheel attitude control system to achieve nadir-pointing under solar radiation pressure disturbance, including PD/PID gain tuning and reaction wheel desaturation/saturation-time analysis. |
 | 3 | `Challenge/` | Advanced Orbit Determination (Challenge) | Extended orbit determination exercise for an Earth orbiter: batch least-squares with atmospheric drag estimation, followed by an Extended Kalman Filter (EKF) using GNSS pseudo-range/pseudo-range-rate observables to also estimate the onboard clock bias and drift. |
 
 ## Course context
