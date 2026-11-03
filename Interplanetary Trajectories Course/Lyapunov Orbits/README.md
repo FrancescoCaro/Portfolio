@@ -2,7 +2,7 @@
 
 Computation of the **L₁ and L₂ Lyapunov orbit families** of the Earth–Moon system in the planar circular restricted three-body problem, and of **L₁/L₂ orbit pairs sharing the same Jacobi constant**. Implemented from scratch in MATLAB (single shooting, numerical continuation, bisection), with the full write-up in LaTeX.
 
-Developed as coursework for *Interplanetary Trajectories*. Author: Francesco Caroletta.
+Developed as coursework for *Interplanetary Trajectories*.
 
 ![Lyapunov families around L1 and L2](figures/figFamilies.png)
 
@@ -84,6 +84,6 @@ Three L₁/L₂ pairs with equal Jacobi constant were obtained inside the requir
 └── figures/                   # plots used in the report
 ```
 
-## Tech
+## Author
 
-MATLAB (`ode113`, `fzero`, `eig`), state transition matrix propagation, single shooting, numerical continuation, bisection, LaTeX.
+**Francesco Caroletta** · [LinkedIn](https://www.linkedin.com/in/francesco-caroletta-a569852a6/) · [GitHub](https://github.com/FrancescoCaro) · [Email](mailto:francecaroletta@gmail.com)
